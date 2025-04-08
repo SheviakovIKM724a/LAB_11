@@ -5,38 +5,63 @@ int main() {
 
     system("chcp 1251 > nul"); //підключення української мови
 
-    // 1. Оголошення трьох покажчиків на цілий тип
-    int* ptr1;
-    int* ptr2;
-    int* ptr3;
+    int n;
+    cout << "Введіть розмір масиву: ";
+    cin >> n;
 
-    // 2. Виділення динамічної пам'яті
-    ptr1 = new int;
-    ptr2 = new int;
-    ptr3 = new int;
+    // Створення динамічного масиву
+    int* a = new int[n];
 
-    // 3. Присвоєння довільних значень
-    *ptr1 = 10;
-    *ptr2 = 20;
-    *ptr3 = 30;
+    // Введення елементів масиву
+    cout << "Введіть елементи масиву:\n";
+    for (int i = 0; i < n; i++) {
+        cin >> a[i];
+    }
 
-    cout << "До обміну:" << endl;
-    cout << "ptr1 = " << *ptr1 << endl;
-    cout << "ptr2 = " << *ptr2 << endl;
+    // Пошук останнього від'ємного елемента
+    int lastNegativeIndex = -1;
+    for (int i = 0; i < n; i++) {
+        if (a[i] < 0) {
+            lastNegativeIndex = i;
+        }
+    }
 
-    // 4. Обмін значеннями перших двох змінних
-    int temp = *ptr1;
-    *ptr1 = *ptr2;
-    *ptr2 = temp;
+    // Перестановка з першим елементом
+    if (lastNegativeIndex != -1) {
+        int temp = a[0];
+        a[0] = a[lastNegativeIndex];
+        a[lastNegativeIndex] = temp;
+    }
 
-    cout << "\nПісля обміну:" << endl;
-    cout << "ptr1 = " << *ptr1 << endl;
-    cout << "ptr2 = " << *ptr2 << endl;
+    // Пошук кількості та суми додатних елементів
+    int positiveCount = 0;
+    int positiveSum = 0;
+    for (int i = 0; i < n; i++) {
+        if (a[i] > 0) {
+            positiveCount++;
+            positiveSum += a[i];
+        }
+    }
+
+    // Виведення результатів
+    cout << "Масив після перестановки:\n";
+    for (int i = 0; i < n; i++) {
+        cout << a[i] << " ";
+    }
+    cout << "\n";
+
+    if (lastNegativeIndex != -1) {
+        cout << "Номер останнього від’ємного елемента: " << lastNegativeIndex << endl;
+    }
+    else {
+        cout << "В масиві немає від’ємних елементів.\n";
+    }
+
+    cout << "Кількість додатних елементів: " << positiveCount << endl;
+    cout << "Сума додатних елементів: " << positiveSum << endl;
 
     // Звільнення пам'яті
-    delete ptr1;
-    delete ptr2;
-    delete ptr3;
+    delete[] a;
 
     return 0;
 }
