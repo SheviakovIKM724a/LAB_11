@@ -11,7 +11,7 @@ int main() {
     cin >> a;
     cout << "Введіть значення змінної b: ";
     cin >> b;
-
+    
     // Оголошення покажчиків
     double* ptrA = &a;
     double* ptrB = &b;
